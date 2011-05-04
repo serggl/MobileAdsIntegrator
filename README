@@ -1,0 +1,22 @@
+Steps to include this library into your eclipse android project:
+
+1) import MobileAdsIntegrator into your eclipse workspace. It will appear as 'com_anjlab_ads_integrator'
+2) click 'your project' -> Properties -> Android -> Library -> Add. Now select 'com_anjlab_ads_integrator'
+4) add references to Ad-provider SDK's. They can be found under libs folder. 
+	click 'your project' -> Properties -> Java Build Path -> Add External JAR's
+3) Change your AndroidManixest.xml, add the following:
+ - required permissions:
+ 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+ - AdMob activity reference and metadata (in order to work with AdMob) under application element:
+	<activity android:name="com.google.ads.AdActivity"
+		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+		android:configChanges="orientation|keyboard|keyboardHidden" />
+		
+   	<meta-data android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" android:value="true" />
+	<meta-data android:name="ADMOB_PUBLISHER_ID" android:value="xxxxxxxxxxxxxxx" />	
+	
+	
+That's all! enjoy!
+ 

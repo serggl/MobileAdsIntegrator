@@ -16,6 +16,7 @@ public class AdIntegrator implements IAdCallback {
 	private int currentIdx;
 	private boolean isRandomOrder;
 	private Random rnd;
+	private boolean cycle;
 	
 	public AdIntegrator(){
 		providers = new ArrayList<AbstractAdProvider>();
@@ -24,6 +25,10 @@ public class AdIntegrator implements IAdCallback {
 	
 	public void setRandomOrder(boolean value){
 		isRandomOrder = value;
+	}
+	
+	public void setCycle(boolean value){
+		cycle = value;
 	}
 	
 	public void register(AbstractAdProvider provider){
@@ -47,9 +52,15 @@ public class AdIntegrator implements IAdCallback {
 	}
 	
 	private void loadCurrentProvider(){
-		if (providers.size() > currentIdx) {
+		int size = providers.size();
+		if (size == 0)
+			return;
+		if (size > currentIdx) {
 			current = providers.get(currentIdx);
 			current.tryLoadAd(context, layout);
+		} else{
+			currentIdx = 0;
+			loadCurrentProvider();
 		}
 	}
 	

@@ -42,7 +42,7 @@ public class InMobyProvider extends AbstractAdProvider implements InMobiAdDelega
 	@Override
 	public int age() {
 		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override
@@ -66,25 +66,25 @@ public class InMobyProvider extends AbstractAdProvider implements InMobiAdDelega
 	@Override
 	public EducationType education() {
 		// TODO Auto-generated method stub
-		return null;
+		return EducationType.Edu_None;
 	}
 
 	@Override
 	public EthnicityType ethnicity() {
 		// TODO Auto-generated method stub
-		return null;
+		return EthnicityType.Eth_None;
 	}
 
 	@Override
 	public GenderType gender() {
 		// TODO Auto-generated method stub
-		return null;
+		return GenderType.G_None;
 	}
 
 	@Override
 	public int income() {
 		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override

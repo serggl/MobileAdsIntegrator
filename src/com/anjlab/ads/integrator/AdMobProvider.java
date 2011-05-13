@@ -15,9 +15,15 @@ public class AdMobProvider extends AbstractAdProvider implements AdListener {
 	private String publisherId;
 	private AdSize size;
 	private AdView adView;
+	private boolean testing;
 	
 	public AdMobProvider(String publisherId){
 		this(publisherId, AdSize.BANNER);
+	}
+	
+	public AdMobProvider(String publisherId, boolean testingMode){
+		this(publisherId, AdSize.BANNER);
+		testing = testingMode;
 	}
 	
 	public AdMobProvider(String publisherId, AdSize size){
@@ -31,7 +37,7 @@ public class AdMobProvider extends AbstractAdProvider implements AdListener {
 		adView.setAdListener(this);
 		layout.addView(adView);
 		AdRequest request = new AdRequest();
-	    //request.setTesting(true);
+	    request.setTesting(testing);
 	    adView.loadAd(request);	    
 	}
 

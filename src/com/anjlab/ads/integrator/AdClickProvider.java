@@ -2,6 +2,7 @@ package com.anjlab.ads.integrator;
 
 import adclick.mod.AdClick;
 import android.app.Activity;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 public class AdClickProvider extends AbstractAdProvider {
@@ -14,6 +15,7 @@ public class AdClickProvider extends AbstractAdProvider {
 		
 	@Override
 	public void tryLoadAd(Activity actv, LinearLayout layout) {
+		Log.d("Ads", "loading AdClick");
 		final AdClick ADS = new AdClick();
 		ADS.CONTX = actv;
 		ADS.PUB_ID = publisherId;
@@ -23,6 +25,6 @@ public class AdClickProvider extends AbstractAdProvider {
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
+		Log.d("Ads", "stoping AdClick");
 	}
 }

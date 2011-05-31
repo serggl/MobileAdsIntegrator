@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="libs/AdClick-sdk-Android-1.jar"/>
 	<classpathentry kind="lib" path="libs/InMobiAndroidSDK.jar"/>
-	<classpathentry kind="lib" path="D:/projects/Android/adintegrator/libs/GoogleAdMobAdsSdk-4.1.0.jar"/>
-	<classpathentry kind="lib" path="D:/projects/Android/adintegrator/libs/AdWhirlSDK_Android_3.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/GoogleAdMobAdsSdk-4.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

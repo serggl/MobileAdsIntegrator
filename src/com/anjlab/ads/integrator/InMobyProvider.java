@@ -17,6 +17,7 @@ public class InMobyProvider extends AbstractAdProvider implements InMobiAdDelega
 
 	private String publisherId;	
 	private InMobiAdView view;
+	private LinearLayout layout;
 	
 	public InMobyProvider(String pubId){
 		this.publisherId = pubId;
@@ -24,13 +25,16 @@ public class InMobyProvider extends AbstractAdProvider implements InMobiAdDelega
 	
 	@Override
 	public void tryLoadAd(Activity actv, LinearLayout layout) {
+		Log.d("Ads", "loading InMoby");
+		this.layout = layout;
 		view = InMobiAdView.requestAdUnitWithDelegate(actv.getApplicationContext(), this, actv, InMobiAdDelegate.INMOBI_AD_UNIT_320X48);
 		view.loadNewAd();
 	}
 
 	@Override
 	public void adRequestCompleted(InMobiAdView arg0) {
-		Log.i("Ads", "got inmoby ad!");		
+		Log.i("Ads", "got inmoby ad!");	
+		layout.addView(arg0);
 	}
 
 	@Override
@@ -137,7 +141,9 @@ public class InMobyProvider extends AbstractAdProvider implements InMobiAdDelega
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
+		if (view != null){
+			Log.d("Ads", "stopin InMoby");
+		}
 	}
 
 }

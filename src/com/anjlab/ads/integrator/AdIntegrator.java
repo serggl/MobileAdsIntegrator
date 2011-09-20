@@ -17,15 +17,21 @@ public class AdIntegrator implements IAdCallback {
 	private boolean isRandomOrder;
 	private Random rnd;
 	private boolean started;
+	private boolean cycle;
 	
 	public AdIntegrator(){
 		providers = new ArrayList<AbstractAdProvider>();
 		rnd = new Random();
 		started = false;
+		cycle = false;
 	}
 	
 	public void setRandomOrder(boolean value){
 		isRandomOrder = value;
+	}
+	
+	public void setCycle(boolean value){
+		cycle = value;
 	}
 	
 	public void register(AbstractAdProvider provider){
@@ -60,18 +66,26 @@ public class AdIntegrator implements IAdCallback {
 			layout.removeAllViews();
 			current.tryLoadAd(context, layout);
 		} else{
-			currentIdx = 0;
-			loadCurrentProvider();
+			if (cycle) {
+				currentIdx = 0;
+				loadCurrentProvider();
+			}
 		}
 	}
 	
-	public void stop(){
+	public void stop(boolean clearBanner){
 		if (started && current != null){
 			Log.i("Ads", "stopping ad provider");
 			started = false;
 			current.stop();
 			current = null;
+			if (clearBanner && layout != null)
+				layout.removeAllViews();
 		}
+	}
+	
+	public void stop(){
+		stop(false);
 	}
 	
 	@Override

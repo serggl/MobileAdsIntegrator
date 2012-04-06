@@ -14,6 +14,7 @@ public class AdClickProvider extends AbstractAdProvider {
 		this.publisherId = publisherId;
 	}
 		
+	@SuppressWarnings("static-access")
 	@Override
 	public void tryLoadAd(Activity actv, LinearLayout layout) {
 		Log.d("Ads", "loading AdClick");
@@ -24,6 +25,7 @@ public class AdClickProvider extends AbstractAdProvider {
 		adClick.ShowAD();
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void stop() {
 		Log.d("Ads", "stoping AdClick");

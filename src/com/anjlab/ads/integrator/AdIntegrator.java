@@ -18,12 +18,16 @@ public class AdIntegrator implements IAdCallback {
 	private Random rnd;
 	private boolean started;
 	private boolean cycle;
+	private int maxCycleDepth;
+	private int cycleDepth;
 	
 	public AdIntegrator(){
 		providers = new ArrayList<AbstractAdProvider>();
 		rnd = new Random();
 		started = false;
 		cycle = false;
+		maxCycleDepth = 100;
+		cycleDepth = 0;
 	}
 	
 	public void setRandomOrder(boolean value){
@@ -32,6 +36,10 @@ public class AdIntegrator implements IAdCallback {
 	
 	public void setCycle(boolean value){
 		cycle = value;
+	}
+	
+	public void setMaxCycleDepth(int value){
+		maxCycleDepth = value;
 	}
 	
 	public void register(AbstractAdProvider provider){
@@ -45,6 +53,8 @@ public class AdIntegrator implements IAdCallback {
 			started = true;
 			context = ctx;
 			layout = (LinearLayout)ctx.findViewById(layoutId);
+			if (layout == null)
+				return;
 			Log.i("Ads", "lodaing ads");
 			layout.removeAllViews();
 			if (isRandomOrder)
@@ -67,8 +77,11 @@ public class AdIntegrator implements IAdCallback {
 			current.tryLoadAd(context, layout);
 		} else{
 			if (cycle) {
-				currentIdx = 0;
-				loadCurrentProvider();
+				cycleDepth ++;
+				if (cycleDepth < maxCycleDepth) {
+					currentIdx = 0;
+					loadCurrentProvider();
+				}
 			}
 		}
 	}

@@ -28,6 +28,7 @@ public class AdIntegrator implements IAdCallback {
 		cycle = false;
 		maxCycleDepth = 100;
 		cycleDepth = 0;
+		isRandomOrder = false;
 	}
 	
 	public void setRandomOrder(boolean value){
@@ -45,6 +46,10 @@ public class AdIntegrator implements IAdCallback {
 	public void register(AbstractAdProvider provider){
 		providers.add(provider);
 		provider.setCallbackListener(this);
+	}
+	
+	public void clearProviders() {
+		providers.clear();
 	}
 	
 	public void loadAds(Activity ctx, int layoutId){
@@ -87,11 +92,13 @@ public class AdIntegrator implements IAdCallback {
 	}
 	
 	public void stop(boolean clearBanner){
-		if (started && current != null){
+		if (started){
 			Log.i("Ads", "stopping ad provider");
 			started = false;
-			current.stop();
-			current = null;
+			if (current != null) {
+				current.stop();
+				current = null;
+			}
 			if (clearBanner && layout != null)
 				layout.removeAllViews();
 		}

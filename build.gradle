@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.anjlab.android:fx:1.0.+@aar'
+}
+
+version '1.0.0'
+group 'com.anjlab.android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.3"
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+        minSdkVersion 3
+        targetSdkVersion 19
+
+    }
+
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        java.srcDirs = ['src']
+    }
+}
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: sonatypeRepo) {
+            authentication(userName: sonatypeUsername, password: sonatypePassword)
+        }
+
+        pom.project {
+            name 'AnjLab Android Ads Integration'
+            packaging 'aar'
+            description 'AnjLab Android Ads Integration'
+            url 'https://github.com/serggl/MobileAdsIntegrator.git'
+
+            scm {
+                url 'scm:git@github.com:serggl/MobileAdsIntegrator.git'
+                connection 'scm:git@github.com:serggl/MobileAdsIntegrator.git'
+                developerConnection 'scm:git@github.com:serggl/MobileAdsIntegrator.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'serggl'
+                    name 'Sergey Glukhov'
+                    email 'sergey.glukhov@gmail.com'
+                }
+            }
+        }
+    }
+}
